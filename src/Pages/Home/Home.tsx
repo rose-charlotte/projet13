@@ -1,8 +1,9 @@
+import { FeaturesList } from "../../Components/Feature/FeatureList/FeatureList";
 import style from "./Home.module.scss";
 
 export function Home() {
     return (
-        <>
+        <main>
             <div className={style.hero}>
                 <section className={style.heroContent}>
                     <h2 className={style.srOnly}>Promoted Content</h2>
@@ -12,6 +13,9 @@ export function Home() {
                     <p className={style.text}>Open a savings account with Argent Bank today!</p>
                 </section>
             </div>
-        </>
+            <section>
+                <FeaturesList />
+            </section>
+        </main>
     );
 }
