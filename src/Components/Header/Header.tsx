@@ -1,8 +1,8 @@
-import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import argentBankLogo from "/argentBankLogo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import style from "./Header.module.scss";
+import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 
 export function Header() {
     return (
