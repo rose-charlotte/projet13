@@ -1,0 +1,33 @@
+.mainNav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 20px;
+}
+.mainNav {
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.mainNavItem {
+    text-decoration: none;
+    margin-right: 0.5rem;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.mainNavItem:hover {
+    text-decoration: underline;
+}
+
+.mainNavLogo {
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    color: #2c3e50;
+}
+
+.mainNavLogoImg {
+    max-width: 100%;
+    width: 200px;
+}
