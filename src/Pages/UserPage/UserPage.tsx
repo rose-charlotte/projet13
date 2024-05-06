@@ -4,6 +4,24 @@ import { UserHeader } from "../../Components/UserHeader/UserHeader";
 import style from "./UserPage.module.scss";
 import { selectToken, setUser } from "../../store/slices/userSlice";
 
+const bankAccounts = [
+    {
+        title: "Argent Bank Checking (x8349)",
+        amount: "$2,082.79",
+        description: "Available Balance",
+    },
+    {
+        title: "Argent Bank Savings (x6712)",
+        amount: "$10,928.42",
+        description: "Available Balance",
+    },
+    {
+        title: "Argent Bank Credit Card (x8349)",
+        amount: "$184.30",
+        description: "Current Balance",
+    },
+];
+
 export function UserPage() {
     const dispatch = useDispatch();
 
@@ -25,7 +43,9 @@ export function UserPage() {
         <main className={style.main}>
             <UserHeader />
             <h2 className={style.srOnly}>Accounts</h2>
-            <Account />
+            {bankAccounts.map(account => (
+                <Account title={account.title} amount={account.amount} description={account.description} />
+            ))}
         </main>
     );
 }
