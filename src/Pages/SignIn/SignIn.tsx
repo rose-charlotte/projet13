@@ -33,7 +33,7 @@ export function SignIn() {
             const token = data.body.token;
             dispatch(setToken(token));
             console.log(token);
-            navigate("/user");
+            navigate("/profile");
         } else {
             alert("pas connecté");
         }
@@ -45,8 +45,8 @@ export function SignIn() {
                 <FontAwesomeIcon icon={faUserCircle} className={style.icone} />
                 <h1>Sign In</h1>
                 <form onSubmit={onSubmit}>
-                    <FormInput label="Username" name="username" />
-                    <FormInput label="Password" name="password" />
+                    <FormInput label="Username" name="username" required />
+                    <FormInput label="Password" name="password" required />
                     <FormCheckbox />
                     <SignInBtn />
                 </form>

@@ -5,7 +5,7 @@ export function FormInput(props: FormItemProps) {
         <div className={style.inputWrapper}>
             <label className={style.label}>
                 {props.label}
-                <input name={props.name} className={style.input} type="text"></input>
+                <input name={props.name} required={props.required} className={style.input} type="text"></input>
             </label>
         </div>
     );
@@ -14,4 +14,5 @@ export function FormInput(props: FormItemProps) {
 interface FormItemProps {
     label: string;
     name: string;
+    required: boolean;
 }
