@@ -13,10 +13,10 @@ export function UserHeader() {
         <header className={style.header}>
             <h1 className={style.title}>
                 Welcome back
-                <span>{`${user?.firstName} ${user?.lastName} !`}</span>
+                {!edit && <span>{`${user?.firstName} ${user?.lastName} !`}</span>}
             </h1>
             {user && edit && (
-                <div>
+                <div className={style.profil}>
                     <FormInput name={user.firstName} required={false} placeholder={user.firstName} />
                     <FormInput name={user.lastName} required={false} placeholder={user.lastName} />
                     <CommonBtn title="Save" onClick={() => console.log("save")} />
