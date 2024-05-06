@@ -9,7 +9,7 @@ export function Account(props: AccountProps) {
                 <p className={style.accountAmountDescription}>{props.description}</p>
             </div>
             <div className={style.accountContentWrapperCta}>
-                <button className={style.transactionBtn}>View transaction</button>
+                <button className={style.transactionBtn}>View transactions</button>
             </div>
         </section>
     );
