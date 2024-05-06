@@ -10,7 +10,7 @@ export const router = createBrowserRouter(
         <Route path="/" element={<Layout />} errorElement={<Navigate to="/page404" />}>
             <Route index element={<Home />} />
             <Route path="/signIn" element={<SignIn />} />
-            <Route path="/user" element={<UserPage />} />
+            <Route path="/profile" element={<UserPage />} />
             <Route path="*" element={<Page404 />} />
         </Route>
     )
