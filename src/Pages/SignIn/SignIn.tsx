@@ -5,42 +5,62 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FormInput } from "../../Components/Commons/FormInput/FormInput.tsx";
 import { FormCheckbox } from "../../Components/Commons/FormCheckbox/FormCheckbox.tsx";
 import { SignInBtn } from "../../Components/Commons/Buttons/SignInBtn/SignInBtn.tsx";
-import { FormEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { setToken } from "../../store/slices/userSlice.ts";
+import { useTokenMutation } from "../../Data/fetchApi/api.ts";
+
+import { FormEvent, useEffect } from "react";
 
 export function SignIn() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const onSubmit = async (e: FormEvent) => {
+    const [login, { data, isError, isLoading }] = useTokenMutation();
+
+    console.log(isError);
+
+    if (isError) {
+        console.log(data);
+    }
+
+    useEffect(() => {
+        if (!data) {
+            return;
+        }
+
+        dispatch(setToken(data.body.token));
+        navigate("/profile");
+    }, [data, dispatch, navigate]);
+
+    const onSubmit = (e: FormEvent) => {
         e.preventDefault();
         const data = new FormData(e.target as HTMLFormElement);
-        const email = data.get("username");
-        const password = data.get("password");
-        console.log(email, password);
+        const email = data.get("username")?.toString();
+        const password = data.get("password")?.toString();
 
-        //API => POST signIn:
-        const response = await fetch("http://localhost:3001/api/v1/user/login", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ email, password }),
-        });
-
-        if (response.ok) {
-            const data = await response.json();
-            const token = data.body.token;
-            dispatch(setToken(token));
-            console.log(token);
-            navigate("/profile");
-        } else {
-            alert("pas connecté");
+        if (!email || !password) {
+            return;
         }
+
+        login({ email, password });
+
+        // try {
+        //     const result = await login({
+        //         email,
+        //         password,
+        //     }).unwrap();
+
+        //     dispatch(setToken(result.body.token));
+        //     navigate("/profile");
+        // } catch (e) {
+        //     alert((e as { data: { message: string } }).data.message);
+        // }
     };
 
     return (
         <main className={style.main}>
+            {isLoading && <p>Loading...</p>}
             <section className={style.signInContent}>
                 <FontAwesomeIcon icon={faUserCircle} className={style.icone} />
                 <h1>Sign In</h1>
