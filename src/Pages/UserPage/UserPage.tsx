@@ -43,8 +43,13 @@ export function UserPage() {
         <main className={style.main}>
             <UserHeader />
             <h2 className={style.srOnly}>Accounts</h2>
-            {bankAccounts.map(account => (
-                <Account title={account.title} amount={account.amount} description={account.description} />
+            {bankAccounts.map((account, index) => (
+                <Account
+                    title={account.title}
+                    amount={account.amount}
+                    description={account.description}
+                    key={`Account-${index}`}
+                />
             ))}
         </main>
     );

@@ -12,7 +12,7 @@ export const router = createBrowserRouter(
             <Route index element={<Home />} />
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/profile" element={<PrivateRoute />}>
-                <Route path="/profile" element={<UserPage />} />
+                <Route index element={<UserPage />} />
             </Route>
             <Route path="*" element={<Page404 />} />
         </Route>
