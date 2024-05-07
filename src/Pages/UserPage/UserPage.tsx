@@ -1,8 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Account } from "../../Components/Account/Account";
 import { UserHeader } from "../../Components/UserHeader/UserHeader";
 import style from "./UserPage.module.scss";
-import { selectToken, setUser } from "../../store/slices/userSlice";
+import { setUser } from "../../store/slices/userSlice";
+import { useProfileMutation } from "../../Data/fetchApi/api";
+import { useEffect } from "react";
 
 const bankAccounts = [
     {
@@ -24,23 +26,20 @@ const bankAccounts = [
 
 export function UserPage() {
     const dispatch = useDispatch();
+    const [profile, { data }] = useProfileMutation();
+    //const [profile, { data, isError, isLoading }] = useProfileMutation();
+    console.log(data?.body.firstName);
 
-    const token = useSelector(selectToken);
-
-    async function getUserInfo() {
-        const response = await fetch("http://localhost:3001/api/v1/user/profile", {
-            method: "POST",
-            headers: { "Content-Type": "application/json", authorization: `Bearer ${token}` },
-        });
-
-        if (response.ok) {
-            const user = await response.json();
-            dispatch(setUser(user.body));
+    useEffect(() => {
+        if (!data) {
+            profile();
         }
-    }
-    getUserInfo();
+        dispatch(setUser(data?.body));
+    }, [data, dispatch, profile]);
+
     return (
         <main className={style.main}>
+            <button onClick={() => profile()}>test</button>
             <UserHeader />
             <h2 className={style.srOnly}>Accounts</h2>
             {bankAccounts.map((account, index) => (

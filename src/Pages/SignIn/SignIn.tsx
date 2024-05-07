@@ -18,8 +18,6 @@ export function SignIn() {
 
     const [login, { data, isError, isLoading }] = useTokenMutation();
 
-    console.log(isError);
-
     if (isError) {
         console.log(data);
     }
@@ -44,18 +42,6 @@ export function SignIn() {
         }
 
         login({ email, password });
-
-        // try {
-        //     const result = await login({
-        //         email,
-        //         password,
-        //     }).unwrap();
-
-        //     dispatch(setToken(result.body.token));
-        //     navigate("/profile");
-        // } catch (e) {
-        //     alert((e as { data: { message: string } }).data.message);
-        // }
     };
 
     return (

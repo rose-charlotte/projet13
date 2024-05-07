@@ -13,6 +13,15 @@ export interface LoginResponse {
     };
 }
 
+export interface ProfileResponse {
+    body: {
+        email: string;
+        firstName: string;
+        lastName: string;
+    };
+    message: string;
+}
+
 export const userApi = createApi({
     reducerPath: "userApi",
     baseQuery: fetchBaseQuery({
@@ -22,7 +31,7 @@ export const userApi = createApi({
 
             const token = selectToken(getState() as RootState);
             if (token) {
-                headers.set("Authentication", `Bearer ${token}`);
+                headers.set("Authorization", `Bearer ${token}`);
             }
 
             return headers;
@@ -36,7 +45,13 @@ export const userApi = createApi({
                 body: data,
             }),
         }),
+        profile: builder.mutation<ProfileResponse, void>({
+            query: () => ({
+                url: "profile",
+                method: "POST",
+            }),
+        }),
     }),
 });
 
-export const { useTokenMutation } = userApi;
+export const { useTokenMutation, useProfileMutation } = userApi;
