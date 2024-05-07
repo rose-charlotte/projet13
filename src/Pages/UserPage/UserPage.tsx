@@ -39,7 +39,6 @@ export function UserPage() {
 
     return (
         <main className={style.main}>
-            <button onClick={() => profile()}>test</button>
             <UserHeader />
             <h2 className={style.srOnly}>Accounts</h2>
             {bankAccounts.map((account, index) => (

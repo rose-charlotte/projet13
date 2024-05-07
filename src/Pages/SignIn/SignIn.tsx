@@ -11,16 +11,13 @@ import { setToken } from "../../store/slices/userSlice.ts";
 import { useTokenMutation } from "../../Data/fetchApi/api.ts";
 
 import { FormEvent, useEffect } from "react";
+import { Page404 } from "../Page404/Page404.tsx";
 
 export function SignIn() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [login, { data, isError, isLoading }] = useTokenMutation();
-
-    if (isError) {
-        console.log(data);
-    }
+    const [login, { data, isLoading }] = useTokenMutation();
 
     useEffect(() => {
         if (!data) {
@@ -47,6 +44,7 @@ export function SignIn() {
     return (
         <main className={style.main}>
             {isLoading && <p>Loading...</p>}
+
             <section className={style.signInContent}>
                 <FontAwesomeIcon icon={faUserCircle} className={style.icone} />
                 <h1>Sign In</h1>
