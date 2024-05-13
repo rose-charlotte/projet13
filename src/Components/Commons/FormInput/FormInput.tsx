@@ -10,7 +10,7 @@ export function FormInput(props: FormItemProps) {
                     required={props.required}
                     className={style.input}
                     type="text"
-                    placeholder={props.placeholder}
+                    defaultValue={props.defaultValue}
                 ></input>
             </label>
         </div>
@@ -21,5 +21,5 @@ interface FormItemProps {
     label?: string;
     name: string | undefined;
     required: boolean;
-    placeholder?: string | undefined;
+    defaultValue?: string | undefined;
 }

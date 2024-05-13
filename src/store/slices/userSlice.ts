@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { userApi } from "../../Data/fetchApi/api";
 
 const initialState: UserState = {
     token: undefined,
@@ -26,6 +27,12 @@ export const userSlice = createSlice({
             state.user = initialState.user;
             return state;
         },
+    },
+    extraReducers: builder => {
+        builder.addMatcher(userApi.endpoints.updateProfile.matchFulfilled, (state, { payload }) => {
+            state.user!.firstName = payload.body.firstName;
+            state.user!.lastName = payload.body.lastName;
+        });
     },
     selectors: {
         selectToken: state => state.token,
