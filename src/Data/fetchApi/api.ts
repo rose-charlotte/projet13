@@ -22,6 +22,14 @@ export interface ProfileResponse {
     message: string;
 }
 
+export interface UpdateProfileResponce {
+    body: { email: string; firstName: string; lastName: string };
+}
+export interface UpdateProfileRequest {
+    firstName: string;
+    lastName: string;
+}
+
 export const userApi = createApi({
     reducerPath: "userApi",
     baseQuery: fetchBaseQuery({
@@ -51,7 +59,14 @@ export const userApi = createApi({
                 method: "POST",
             }),
         }),
+        updateProfile: builder.mutation<UpdateProfileResponce, UpdateProfileRequest>({
+            query: data => ({
+                url: "profile",
+                method: "PUT",
+                body: data,
+            }),
+        }),
     }),
 });
 
-export const { useTokenMutation, useProfileMutation } = userApi;
+export const { useTokenMutation, useProfileMutation, useUpdateProfileMutation } = userApi;
