@@ -10,5 +10,5 @@ export function CommonBtn(props: CommonBtnProps) {
 
 export interface CommonBtnProps {
     title: string;
-    onClick: () => void;
+    onClick?: () => void;
 }
