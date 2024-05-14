@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
 import { Account } from "../../Components/Account/Account";
 import { UserHeader } from "../../Components/UserHeader/UserHeader";
 import style from "./UserPage.module.scss";
-import { setUser } from "../../store/slices/userSlice";
 import { useProfileMutation } from "../../Data/fetchApi/api";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/slices/userSlice";
 
 const bankAccounts = [
     {
@@ -25,30 +26,51 @@ const bankAccounts = [
 ];
 
 export function UserPage() {
-    const dispatch = useDispatch();
-    const [profile, { data }] = useProfileMutation();
-    //const [profile, { data, isError, isLoading }] = useProfileMutation();
-    console.log(data?.body.firstName);
+    const [profile, { data, isError, isLoading }] = useProfileMutation();
+
+    const user = useSelector(selectUser);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
-        if (!data) {
-            profile();
+        // Si l'appel API est en cours alors on attends
+        if (isLoading) {
+            return;
         }
-        dispatch(setUser(data?.body));
-    }, [data, dispatch, profile]);
+
+        // Si je n'ai ni données ni erreur alors j'appelle l'API
+        if (!data && !isError) {
+            profile();
+            return;
+        }
+
+        // Dans ce cas je n'ai pas pu récupérer les données de l'utilisateur et je le redirige vers la page SignIn
+        if (isError) {
+            navigate("/signIn", {
+                state: {
+                    error: "Utilisateur non trouvé",
+                },
+            });
+        }
+        [user, navigate];
+    });
 
     return (
-        <main className={style.main}>
-            <UserHeader />
-            <h2 className={style.srOnly}>Accounts</h2>
-            {bankAccounts.map((account, index) => (
-                <Account
-                    title={account.title}
-                    amount={account.amount}
-                    description={account.description}
-                    key={`Account-${index}`}
-                />
-            ))}
-        </main>
+        <>
+            {user ? (
+                <main className={style.main}>
+                    <UserHeader />
+                    <h2 className={style.srOnly}>Accounts</h2>
+                    {bankAccounts.map((account, index) => (
+                        <Account
+                            title={account.title}
+                            amount={account.amount}
+                            description={account.description}
+                            key={`Account-${index}`}
+                        />
+                    ))}
+                </main>
+            ) : null}
+        </>
     );
 }

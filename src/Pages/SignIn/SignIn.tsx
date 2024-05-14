@@ -5,9 +5,8 @@ import { faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { FormInput } from "../../Components/Commons/FormInput/FormInput.tsx";
 import { FormCheckbox } from "../../Components/Commons/FormCheckbox/FormCheckbox.tsx";
 import { SignInBtn } from "../../Components/Commons/Buttons/SignInBtn/SignInBtn.tsx";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { setToken } from "../../store/slices/userSlice.ts";
 import { useTokenMutation } from "../../Data/fetchApi/api.ts";
 
 import { FormEvent, useEffect } from "react";
@@ -16,14 +15,16 @@ export function SignIn() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const [login, { data, isLoading }] = useTokenMutation();
+    const location = useLocation();
 
+    const [login, { data }] = useTokenMutation();
+
+    console.log(data);
     useEffect(() => {
         if (!data) {
             return;
         }
 
-        dispatch(setToken(data.body.token));
         navigate("/profile");
     }, [data, dispatch, navigate]);
 
@@ -42,8 +43,7 @@ export function SignIn() {
 
     return (
         <main className={style.main}>
-            {isLoading && <p>Loading...</p>}
-
+            {location.state?.error && <span className={style.errorMsg}>{location.state.error}</span>}
             <section className={style.signInContent}>
                 <FontAwesomeIcon icon={faUserCircle} className={style.icone} />
                 <h1>Sign In</h1>

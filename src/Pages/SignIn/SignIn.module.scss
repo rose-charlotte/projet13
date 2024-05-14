@@ -11,3 +11,11 @@
     margin-top: 3rem;
     padding: 2rem;
 }
+
+.errorMsg {
+    color: red;
+    padding-top: 15px;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+}

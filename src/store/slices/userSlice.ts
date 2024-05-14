@@ -10,17 +10,9 @@ export const userSlice = createSlice({
     name: "user",
     initialState,
     reducers: {
-        setToken: (state, action) => {
-            state.token = action.payload;
-        },
-
         deleteToken: state => {
             state.token = initialState.token;
             return state;
-        },
-
-        setUser: (state, action) => {
-            state.user = action.payload;
         },
 
         deleteUser: state => {
@@ -32,6 +24,14 @@ export const userSlice = createSlice({
         builder.addMatcher(userApi.endpoints.updateProfile.matchFulfilled, (state, { payload }) => {
             state.user!.firstName = payload.body.firstName;
             state.user!.lastName = payload.body.lastName;
+        });
+
+        builder.addMatcher(userApi.endpoints.profile.matchFulfilled, (state, { payload }) => {
+            state.user = payload.body;
+        });
+
+        builder.addMatcher(userApi.endpoints.token.matchFulfilled, (state, { payload }) => {
+            state.token = payload.body.token;
         });
     },
     selectors: {
@@ -53,6 +53,6 @@ export interface User {
 
 export const { selectToken, selectUser } = userSlice.selectors;
 
-export const { setToken, deleteToken, setUser, deleteUser } = userSlice.actions;
+export const { deleteToken, deleteUser } = userSlice.actions;
 
 export default userSlice.reducer;
