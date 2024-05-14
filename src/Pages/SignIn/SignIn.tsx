@@ -17,8 +17,9 @@ export function SignIn() {
 
     const location = useLocation();
 
-    const [login, { data }] = useTokenMutation();
+    const [login, { data, isError }] = useTokenMutation();
 
+    console.log(isError);
     console.log(data);
     useEffect(() => {
         if (!data) {
@@ -44,6 +45,7 @@ export function SignIn() {
     return (
         <main className={style.main}>
             {location.state?.error && <span className={style.errorMsg}>{location.state.error}</span>}
+            {isError && <span className={style.errorMsg}>Utilisateur ou mot de passe invalide</span>}
             <section className={style.signInContent}>
                 <FontAwesomeIcon icon={faUserCircle} className={style.icone} />
                 <h1>Sign In</h1>
