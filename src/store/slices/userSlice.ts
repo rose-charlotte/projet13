@@ -9,6 +9,7 @@ const initialState: UserState = {
 export const userSlice = createSlice({
     name: "user",
     initialState,
+
     reducers: {
         deleteToken: state => {
             state.token = initialState.token;
@@ -20,6 +21,7 @@ export const userSlice = createSlice({
             return state;
         },
     },
+
     extraReducers: builder => {
         builder.addMatcher(userApi.endpoints.updateProfile.matchFulfilled, (state, { payload }) => {
             state.user!.firstName = payload.body.firstName;

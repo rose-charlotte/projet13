@@ -14,19 +14,23 @@ export function UserHeader() {
 
     const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
+
         const data = new FormData(e.target as HTMLFormElement);
         const firstName = data.get("firstName")?.toString();
         const lastName = data.get("lastName")?.toString();
 
+        // Vérifie que les champs sont renseignés
         if (!firstName || !lastName) {
             return;
         }
 
+        //S'il n'y a aucune modification dans les informations alors la requête n'est pas envoyées
         if (firstName === user?.firstName && lastName === user?.lastName) {
             setEdit(false);
             return;
         }
 
+        //Envoies les modifications du profil via l'API
         updateProfile({ firstName, lastName }).then(result => {
             if (!("error" in result)) {
                 setEdit(false);
@@ -34,7 +38,6 @@ export function UserHeader() {
         });
     };
 
-    console.log(user);
     return (
         <header className={style.header}>
             {isLoading && <span>Loading...</span>}
