@@ -34,7 +34,7 @@ export function Header() {
                         <img className={style.mainNavLogoImg} src={argentBankLogo} alt="logo argent bank" />
                     </Link>
                     <div>
-                        <Link to="/" className={style.mainNavItem}>
+                        <Link to="/profile" className={style.mainNavItem}>
                             <FontAwesomeIcon icon={faUserCircle} />
                             {user.firstName}{" "}
                         </Link>
