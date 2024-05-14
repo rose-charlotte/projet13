@@ -1,0 +1,159 @@
+openapi: 3.1.0
+info:
+    title: Bank Argent API documentation
+    description: Contains all available API endpoints in this codebase
+    termsOfService: http://charlotte.io/termsOfService
+
+    version: 1.0.409
+
+servers:
+    - url: http://localhost:3001/api/v2
+
+tags:
+    - name: Bank Accounts
+      description: Access to bank accounts
+
+    - name: Transactions
+      description: Access to transactions
+
+paths:
+    /bankAccount/transaction/details:
+        patch:
+            tags: [Transactions]
+            summary: Update of the specified transaction
+            requestBody:
+                description: Update one or more fields of a transaction
+                content:
+                    application/json:
+                        schema:
+                            type: object
+                            properties:
+                                TransactionType:
+                                    type: string
+                                    enum: [Electronic, card]
+                                Category:
+                                    type: string
+                                    enum: [Food, clothes, restaurant]
+                                description:
+                                    type: string
+            responses:
+                "401":
+                    $ref: "#/components/responses/UnauthorizedError"
+                "500":
+                    description: Internal Server Error
+                "200":
+                    description: OK
+
+        get:
+            tags: [Transactions]
+            summary: Details of each transaction
+            parameters:
+                - name: ID
+                  in: query
+                  description: ID of the specified transaction
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "400":
+                    description: Invalid Fields
+                "401":
+                    $ref: "#/components/responses/UnauthorizedError"
+                "500":
+                    description: Internal Server Error
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    TransactionType:
+                                        type: string
+                                        enum: [Electronic, card]
+                                    Category:
+                                        type: string
+                                        enum: [Food, clothes, restaurant]
+                                    description:
+                                        type: string
+
+    /bankAccount/transaction:
+        get:
+            tags: [Transactions]
+            summary: Transaction  from the specified bank account
+            parameters:
+                - name: ID
+                  in: query
+                  description: ID of the specified bank account
+                  required: true
+                  schema:
+                      type: string
+            responses:
+                "400":
+                    description: Invalid Fields
+                "401":
+                    $ref: "#/components/responses/UnauthorizedError"
+                "500":
+                    description: Internal Server Error
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    id:
+                                        type: string
+                                    date:
+                                        type: string
+                                    description:
+                                        type: string
+                                    currency:
+                                        type: string
+                                        enum: [$, €]
+                                    amount:
+                                        type: number
+
+    /bankAccount:
+        get:
+            tags:
+                - Bank Accounts
+            summary: BankAccounst API
+            responses:
+                "400":
+                    description: Invalid Fields
+                "401":
+                    $ref: "#/components/responses/UnauthorizedError"
+                "500":
+                    description: Internal Server Error
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                type: object
+                                properties:
+                                    type:
+                                        type: string
+                                        enum: [credit-card, checking, savings]
+                                    id:
+                                        type: string
+                                    currency:
+                                        type: string
+                                        enum: [$, €]
+                                    balance:
+                                        type: number
+
+components:
+    securitySchemes:
+        bearerAuth:
+            type: http
+            scheme: bearer
+            bearerFormat: JWT
+
+    responses:
+        UnauthorizedError:
+            description: Access token is missing or invalid
+
+security:
+    - bearerAuth: []
