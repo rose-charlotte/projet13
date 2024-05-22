@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import style from "./Account.module.scss";
 
 export function Account(props: AccountProps) {
+    const bankAccountId = props.bankAccountId;
     return (
         <section className={style.account}>
             <div className={style.accountContentWrapper}>
@@ -13,7 +14,7 @@ export function Account(props: AccountProps) {
             </div>
             <div className={style.accountContentWrapperCta}>
                 <button className={style.transactionBtn}>
-                    <Link className={style.link} to="/profile/bankAccount/transactions">
+                    <Link className={style.link} to={"/profile/" + bankAccountId + "/transactions"}>
                         View transactions
                     </Link>
                 </button>
@@ -27,4 +28,5 @@ export interface AccountProps {
     accountId: string;
     currency: string;
     balanceType: string;
+    bankAccountId: string;
 }

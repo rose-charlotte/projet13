@@ -5,7 +5,8 @@ import { Layout } from "./Pages/Layout/Layout";
 import { UserPage } from "./Pages/UserPage/UserPage";
 import { Page404 } from "./Pages/Page404/Page404";
 import { PrivateRoute } from "./Components/PrivateRoute/privateRoute";
-import { AllTransactions } from "./Components/transactions/AllTransactions";
+
+import { TransactionsPage } from "./Pages/TransactionsPage/Transaction";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -14,7 +15,7 @@ export const router = createBrowserRouter(
             <Route path="/signIn" element={<SignIn />} />
             <Route path="/profile" element={<PrivateRoute />}>
                 <Route index element={<UserPage />} />
-                <Route path="bankAccount/transactions" element={<AllTransactions />} />
+                <Route path=":bankAccountId/transactions" element={<TransactionsPage />} />
             </Route>
             <Route path="*" element={<Page404 />} />
         </Route>

@@ -10,12 +10,12 @@ export interface BankAccount {
     currency: string;
     userId: string;
     balanceType: string;
+    _id: string;
 }
 
 export interface TransactionsResponse extends Array<Transactions> {}
 
 export interface Transactions {
-    id: string;
     date: string;
     description: string;
     currency: string;

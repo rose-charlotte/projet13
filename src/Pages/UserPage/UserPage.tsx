@@ -6,17 +6,13 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/slices/userSlice";
-import { useGetAllTransactionsQuery, useGetBankAccountQuery } from "../../Data/fetchApi/bankAccountApi";
+import { useGetBankAccountQuery } from "../../Data/fetchApi/bankAccountApi";
 
 export function UserPage() {
     const { data: bankAccountData } = useGetBankAccountQuery();
     console.log(bankAccountData);
 
     const [profile, { data, isError, isLoading }] = useProfileMutation();
-
-    const bankAccountId = "66433ce5c36f8616cb944380";
-    const { data: transactionData } = useGetAllTransactionsQuery(bankAccountId);
-    console.log(transactionData);
 
     const user = useSelector(selectUser);
     console.log(user);
@@ -56,6 +52,7 @@ export function UserPage() {
                     {bankAccountData &&
                         bankAccountData.map((account, index) => (
                             <Account
+                                bankAccountId={account._id}
                                 type={account.type}
                                 accountId={account.accountId}
                                 currency={`${account.currency} 2,082.79 `}
