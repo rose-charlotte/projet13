@@ -1,10 +1,15 @@
+import style from "./TransactionItem.module.scss";
+
 export function TransactionItem(props: TransactionProps) {
     return (
-        <div>
+        <div className={style.transactionContainer}>
             <p>{props.date}</p>
             <p>{props.description}</p>
-            <p>{props.currency}</p>
-            <p>{props.amount}</p>
+            <p>
+                {props.currency}
+                {props.amount}
+            </p>
+
             <p>balance : 2000</p>
         </div>
     );

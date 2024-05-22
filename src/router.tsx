@@ -6,7 +6,7 @@ import { UserPage } from "./Pages/UserPage/UserPage";
 import { Page404 } from "./Pages/Page404/Page404";
 import { PrivateRoute } from "./Components/PrivateRoute/privateRoute";
 
-import { TransactionsPage } from "./Pages/TransactionsPage/Transaction";
+import { TransactionsPage } from "./Pages/TransactionsPage/TransactionPage";
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
