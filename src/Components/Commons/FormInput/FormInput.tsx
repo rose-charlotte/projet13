@@ -9,7 +9,7 @@ export function FormInput(props: FormItemProps) {
                     name={props.name}
                     required={props.required}
                     className={style.input}
-                    type="text"
+                    type={props.type}
                     defaultValue={props.defaultValue}
                 ></input>
             </label>
@@ -19,6 +19,7 @@ export function FormInput(props: FormItemProps) {
 
 interface FormItemProps {
     label?: string;
+    type: string;
     name: string | undefined;
     required: boolean;
     defaultValue?: string | undefined;

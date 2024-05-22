@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { userApi } from "../../Data/fetchApi/api";
+import { userApi } from "../../Data/fetchApi/userApi";
 
 const initialState: UserState = {
     token: undefined,
@@ -48,6 +48,7 @@ export interface UserState {
 }
 
 export interface User {
+    userId: string | undefined;
     email: string | undefined;
     firstName: string | undefined;
     lastName: string | undefined;

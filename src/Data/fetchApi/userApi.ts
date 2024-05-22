@@ -15,6 +15,7 @@ export interface LoginResponse {
 
 export interface ProfileResponse {
     body: {
+        userId: string;
         email: string;
         firstName: string;
         lastName: string;

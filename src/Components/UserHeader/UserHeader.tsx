@@ -4,7 +4,7 @@ import { selectUser } from "../../store/slices/userSlice";
 import { FormInput } from "../Commons/FormInput/FormInput";
 import { CommonBtn } from "../Commons/Buttons/commonBtn/CommonBtn";
 import { FormEvent, useState } from "react";
-import { useUpdateProfileMutation } from "../../Data/fetchApi/api";
+import { useUpdateProfileMutation } from "../../Data/fetchApi/userApi";
 
 export function UserHeader() {
     const [edit, setEdit] = useState(false);
@@ -47,8 +47,8 @@ export function UserHeader() {
             </h1>
             {user && edit && (
                 <form onSubmit={onSubmit} className={style.profil}>
-                    <FormInput name="firstName" required={false} defaultValue={user.firstName} />
-                    <FormInput name="lastName" required={false} defaultValue={user.lastName} />
+                    <FormInput name="firstName" type="text" required={false} defaultValue={user.firstName} />
+                    <FormInput name="lastName" type="text" required={false} defaultValue={user.lastName} />
                     <CommonBtn title="Save" />
                     <CommonBtn title="Cancel" onClick={() => setEdit(false)} />
 

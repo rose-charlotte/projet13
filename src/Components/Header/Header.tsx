@@ -5,6 +5,8 @@ import style from "./Header.module.scss";
 import { faSignOutAlt, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteToken, deleteUser, selectUser } from "../../store/slices/userSlice";
+import { userApi } from "../../Data/fetchApi/userApi";
+import { bankAccountApi } from "../../Data/fetchApi/bankAccountApi";
 
 export function Header() {
     const dispatch = useDispatch();
@@ -13,6 +15,8 @@ export function Header() {
     const onDeconnexion = () => {
         dispatch(deleteToken());
         dispatch(deleteUser());
+        dispatch(userApi.util.resetApiState());
+        dispatch(bankAccountApi.util.resetApiState());
     };
 
     return (

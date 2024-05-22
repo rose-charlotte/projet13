@@ -7,7 +7,7 @@ import { FormCheckbox } from "../../Components/Commons/FormCheckbox/FormCheckbox
 import { SignInBtn } from "../../Components/Commons/Buttons/SignInBtn/SignInBtn.tsx";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import { useTokenMutation } from "../../Data/fetchApi/api.ts";
+import { useTokenMutation } from "../../Data/fetchApi/userApi.ts";
 
 import { FormEvent, useEffect } from "react";
 
@@ -17,7 +17,7 @@ export function SignIn() {
     const location = useLocation();
 
     const [login, { data, isError }] = useTokenMutation();
-
+    console.log(data);
     useEffect(() => {
         if (!data) {
             return;
@@ -47,8 +47,8 @@ export function SignIn() {
                 <FontAwesomeIcon icon={faUserCircle} className={style.icone} />
                 <h1>Sign In</h1>
                 <form onSubmit={onSubmit}>
-                    <FormInput label="Username" name="username" required />
-                    <FormInput label="Password" name="password" required />
+                    <FormInput type="text" label="Username" name="username" required />
+                    <FormInput type="password" label="Password" name="password" required />
                     <FormCheckbox />
                     <SignInBtn />
                 </form>

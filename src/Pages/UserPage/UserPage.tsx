@@ -1,34 +1,25 @@
 import { Account } from "../../Components/Account/Account";
 import { UserHeader } from "../../Components/UserHeader/UserHeader";
 import style from "./UserPage.module.scss";
-import { useProfileMutation } from "../../Data/fetchApi/api";
+import { useProfileMutation } from "../../Data/fetchApi/userApi";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/slices/userSlice";
-
-const bankAccounts = [
-    {
-        title: "Argent Bank Checking (x8349)",
-        amount: "$2,082.79",
-        description: "Available Balance",
-    },
-    {
-        title: "Argent Bank Savings (x6712)",
-        amount: "$10,928.42",
-        description: "Available Balance",
-    },
-    {
-        title: "Argent Bank Credit Card (x8349)",
-        amount: "$184.30",
-        description: "Current Balance",
-    },
-];
+import { useGetAllTransactionsQuery, useGetBankAccountQuery } from "../../Data/fetchApi/bankAccountApi";
 
 export function UserPage() {
+    const { data: bankAccountData } = useGetBankAccountQuery();
+    console.log(bankAccountData);
+
     const [profile, { data, isError, isLoading }] = useProfileMutation();
 
+    const bankAccountId = "66433ce5c36f8616cb944380";
+    const { data: transactionData } = useGetAllTransactionsQuery(bankAccountId);
+    console.log(transactionData);
+
     const user = useSelector(selectUser);
+    console.log(user);
 
     const navigate = useNavigate();
 
@@ -41,6 +32,7 @@ export function UserPage() {
         // Si je n'ai ni données ni erreur alors j'appelle l'API
         if (!data && !isError) {
             profile();
+
             return;
         }
 
@@ -52,8 +44,7 @@ export function UserPage() {
                 },
             });
         }
-        [user, navigate];
-    });
+    }, [user, navigate, isLoading, data, isError, profile]);
 
     return (
         <>
@@ -61,14 +52,17 @@ export function UserPage() {
                 <main className={style.main}>
                     <UserHeader />
                     <h2 className={style.srOnly}>Accounts</h2>
-                    {bankAccounts.map((account, index) => (
-                        <Account
-                            title={account.title}
-                            amount={account.amount}
-                            description={account.description}
-                            key={`Account-${index}`}
-                        />
-                    ))}
+
+                    {bankAccountData &&
+                        bankAccountData.map((account, index) => (
+                            <Account
+                                type={account.type}
+                                accountId={account.accountId}
+                                currency={`${account.currency} 2,082.79 `}
+                                balanceType={account.balanceType}
+                                key={`Account-${index}`}
+                            />
+                        ))}
                 </main>
             ) : null}
         </>
