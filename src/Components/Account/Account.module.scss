@@ -46,6 +46,11 @@
     color: #fff;
 }
 
+.link {
+    text-decoration: none;
+    color: white;
+}
+
 @media (min-width: 720px) {
     .account {
         flex-direction: row;
