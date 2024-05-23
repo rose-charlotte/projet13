@@ -11,15 +11,7 @@ export function AllTransactions() {
     return (
         <div className={style.TransactionsContainer}>
             {transactionData &&
-                transactionData.map((transaction, index) => (
-                    <TransactionItem
-                        date={transaction.date}
-                        description={transaction.description}
-                        currency={transaction.currency}
-                        amount={transaction.amount}
-                        key={index}
-                    />
-                ))}
+                transactionData.map(transaction => <TransactionItem transaction={transaction} key={transaction._id} />)}
         </div>
     );
 }

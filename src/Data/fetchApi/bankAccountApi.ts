@@ -13,13 +13,25 @@ export interface BankAccount {
     _id: string;
 }
 
-export interface TransactionsResponse extends Array<Transactions> {}
+export interface TransactionsResponse extends Array<Transaction> {}
 
-export interface Transactions {
+export interface Transaction {
+    _id: string;
     date: string;
     description: string;
     currency: string;
     amount: number;
+}
+
+export interface QueryArgument {
+    bankAccountId: string;
+    transactionId: string;
+}
+export interface TransactionResponse {
+    transactionId: string;
+    transactionType: string;
+    Category: string;
+    Note: string;
 }
 
 export const bankAccountApi = createApi({
@@ -44,7 +56,13 @@ export const bankAccountApi = createApi({
         getAllTransactions: builder.query<TransactionsResponse, string>({
             query: (bankAccountId: string) => ({ url: `/${bankAccountId}/transactions`, method: "GET" }),
         }),
+        getTransactionById: builder.query<TransactionResponse, QueryArgument>({
+            query: ({ bankAccountId, transactionId }) => ({
+                url: `/${bankAccountId}/transactions/${transactionId}`,
+                method: "GET",
+            }),
+        }),
     }),
 });
 
-export const { useGetBankAccountQuery, useGetAllTransactionsQuery } = bankAccountApi;
+export const { useGetBankAccountQuery, useGetAllTransactionsQuery, useGetTransactionByIdQuery } = bankAccountApi;

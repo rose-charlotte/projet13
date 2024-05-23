@@ -3,7 +3,7 @@ import { AllTransactions } from "../../Components/transaction/AllTransactions/Al
 export function TransactionsPage() {
     return (
         <>
-            <p>Transaction Page</p>
+            <p>Transaction for June 2020</p>
             <AllTransactions />
         </>
     );
