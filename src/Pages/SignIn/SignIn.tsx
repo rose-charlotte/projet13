@@ -9,24 +9,16 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 import { useTokenMutation } from "../../Data/fetchApi/userApi.ts";
 
-import { FormEvent, useEffect } from "react";
+import { FormEvent } from "react";
 
 export function SignIn() {
     const navigate = useNavigate();
 
     const location = useLocation();
 
-    const [login, { data, isError }] = useTokenMutation();
+    const [login, { isError }] = useTokenMutation();
 
-    useEffect(() => {
-        if (!data) {
-            return;
-        }
-
-        navigate("/profile");
-    }, [data, navigate]);
-
-    const onSubmit = (e: FormEvent) => {
+    const onSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const data = new FormData(e.target as HTMLFormElement);
         const email = data.get("username")?.toString();
@@ -36,7 +28,14 @@ export function SignIn() {
             return;
         }
 
-        login({ email, password });
+        try {
+            await login({ email, password }).unwrap();
+
+            // Si nous atteignons ce point, alors l'appel API a réussi, nous pouvons donc naviguer vers la page de profil
+            navigate("/profile");
+        } catch {
+            // Une erreur s'est produite. Elle est gérée au moment du re-render avec le paramètre isError
+        }
     };
 
     return (
