@@ -7,7 +7,7 @@ info:
     version: 1.0.409
 
 servers:
-    - url: http://localhost:5173/api/v2
+    - url: http://localhost:3001/api/v2
 
 tags:
     - name: Bank Accounts
@@ -50,6 +50,8 @@ paths:
                     description: Invalid Fields
                 "401":
                     $ref: "#/components/responses/UnauthorizedError"
+                "404":
+                    description: Not found
                 "500":
                     description: Internal Server Error
                 "200":
@@ -184,6 +186,8 @@ paths:
                     description: Invalid Fields
                 "401":
                     $ref: "#/components/responses/UnauthorizedError"
+                "404":
+                    description: Not found
                 "500":
                     description: Internal Server Error
                 "200":
@@ -207,17 +211,3 @@ paths:
                                             type: string
                                         balanceType:
                                             type: string
-
-components:
-    securitySchemes:
-        bearerAuth:
-            type: http
-            scheme: bearer
-            bearerFormat: JWT
-
-    responses:
-        UnauthorizedError:
-            description: Access token is missing or invalid
-
-security:
-    - bearerAuth: []
