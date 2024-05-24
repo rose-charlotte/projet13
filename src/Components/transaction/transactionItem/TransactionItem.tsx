@@ -38,7 +38,13 @@ export function TransactionItem(props: TransactionProps) {
                 <p>balance : 2000</p>
             </div>
 
-            {edit && <div>ici</div>}
+            {edit && transactionDetailsData && (
+                <div>
+                    <p>Transaction Type: {transactionDetailsData.transactionType}</p>
+                    <p> Category: {transactionDetailsData.category}</p>
+                    <p>Notes: {transactionDetailsData.note}</p>
+                </div>
+            )}
         </>
     );
 }

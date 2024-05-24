@@ -30,8 +30,8 @@ export interface QueryArgument {
 export interface TransactionResponse {
     transactionId: string;
     transactionType: string;
-    Category: string;
-    Note: string;
+    category: string;
+    note: string;
 }
 
 export const bankAccountApi = createApi({
