@@ -17,7 +17,7 @@ export function SignIn() {
     const location = useLocation();
 
     const [login, { data, isError }] = useTokenMutation();
-    console.log(data);
+
     useEffect(() => {
         if (!data) {
             return;

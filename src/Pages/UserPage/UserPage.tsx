@@ -10,12 +10,10 @@ import { useGetBankAccountQuery } from "../../Data/fetchApi/bankAccountApi";
 
 export function UserPage() {
     const { data: bankAccountData } = useGetBankAccountQuery();
-    console.log(bankAccountData);
 
     const [profile, { data, isError, isLoading }] = useProfileMutation();
 
     const user = useSelector(selectUser);
-    console.log(user);
 
     const navigate = useNavigate();
 
